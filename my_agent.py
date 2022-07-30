@@ -99,6 +99,7 @@ class WordleAgent():
 def delete_words(words, letter_indexes, letter_states, letters):
     words = remove_grays(words, letter_indexes, letter_states, letters)
     words = deal_with_yellows(words, letter_indexes, letter_states, letters)
+
     words = deal_with_greens(words, letter_indexes, letter_states, letters)
     return words
 
