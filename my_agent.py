@@ -43,7 +43,7 @@ class WordleAgent():
       :param num_guesses: the max. number of guesses per game
       :param mode: indicates whether the game is played in 'easy' or 'hard' mode
       """
-
+        test_words = ["FITTS", "ALLOW", "TOUGH", "ALLOW", "FISTS"]
         self.dictionary = dictionary
         self.letters = letters
         self.word_length = word_length
@@ -80,7 +80,7 @@ class WordleAgent():
             #self.words = list(test_words)
             self.words =  list(self.dictionary)
             print("list length is :" + str(len(self.words)))
-            return "FISTS"
+            return "CRANE"
 
         if guess_counter == self.num_guesses:
             print("in reset")
@@ -92,14 +92,13 @@ class WordleAgent():
         # Currently this agent always returns the first word from the dictionary - probably
         # a good idea to replace this with a better guess based on your code above.
         n = random.randint(0, len(self.words)-1)
-        print(self.words)
+
         return self.words[n]
 
 
 def delete_words(words, letter_indexes, letter_states, letters):
-    words = remove_grays(words, letter_indexes, letter_states, letters)
     words = deal_with_yellows(words, letter_indexes, letter_states, letters)
-
+    words = remove_grays(words, letter_indexes, letter_states, letters)
     words = deal_with_greens(words, letter_indexes, letter_states, letters)
     return words
 
@@ -156,6 +155,18 @@ def deal_with_yellows(words, letter_indexes, letter_states, letters):
     deleted_words = []
     letter_counts = check_for_multiple_yellows(letter_indexes, letter_states)
     copy_dictionary = copy.deepcopy(words)
+
+    for word in words:
+        for key in letter_counts:
+            print(key)
+            return
+            """
+            for char in word:
+                """
+
+
+
+    """
     for word in words:
         for key in letter_counts:
             letter = letters[key]
@@ -164,10 +175,12 @@ def deal_with_yellows(words, letter_indexes, letter_states, letters):
                 for ch in word:
                     if ch == letter:
                         amount -= 1
-            if amount != 0 and word not in deleted_words:
-                copy_dictionary.remove(word)
-                deleted_words.append(word)
-    print(deleted_words)
+                if amount > 0 and word not in deleted_words:
+                    copy_dictionary.remove(word)
+                    deleted_words.append(word)
+                    
+                    """
+
     return copy_dictionary
 
 
@@ -207,7 +220,7 @@ def deal_with_greens(words, letter_indexes, letter_states, letters):
     if green_map:
         copy_dictionary = copy.deepcopy(words)
         delete_words = []
-        print(green_map)
+
         for word in words:
             flag = True
             for key in green_map:
