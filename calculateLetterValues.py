@@ -15,20 +15,36 @@ def get_dictionary(file_path):
 
    return words
 
-#def create_gray_tuple(letter_indexes, letter_states):
+
+def get_letter_value_map(words):
+   total_letters = 0
+   map_values = {}
+   for word in words:
+      for char in word:
+         total_letters += 1
+         if char not in map_values:
+            map_values[char] = 1
+         else:
+            count = map_values[char]
+            count += 1
+            map_values[char] = count
+
+   for char in map_values:
+      val = map_values[char]
+      val = val/total_letters
+      map_values[char] = val
 
 
-def remove_grays(words, letter_indexes, letter_states):
-   for i in range(5):
-      if letter_states[i] == 0:
-         for word in words:
-            if helper.letter_indices_to_word(letter_indexes[i]) in word:
-               words.remove(word)
+   return map_values
 
 
 
-normal_words = get_dictionary("dictionaries/acutalWords.txt")
+
+
+
 all_words = get_dictionary("dictionaries/english.txt")
+
+get_letter_value_map(all_words)
 
 
 
